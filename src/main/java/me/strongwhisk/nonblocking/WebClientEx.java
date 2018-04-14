@@ -66,13 +66,13 @@ public class WebClientEx {
 
         //백프레셔 만큼 받아 처리하는 동작을 정의 후 subscribe
         Flux<GitHubRepository> repositoryFlux = client.get().uri("/users/{username}/repos", "dlxotn216").retrieve().bodyToFlux(GitHubRepository.class);
-        repositoryFlux.doOnNext(response -> log.info("Single Object Flux response: " + response.toString()))
+        repositoryFlux.doOnNext(response -> log.info("Repository response: " + response.toString()))
                        .doOnError(error -> log.error("Error On Repository Flux", error))
                        .subscribe();
 
         //백프레셔 만큼 받아 처리하는 동작을 정의 후 subscribe
         Flux<GitHubCommit> commitsFlux = client.get().uri("/repos/{username}/{repos}/commits", "dlxotn216", "cooperation").retrieve().bodyToFlux(GitHubCommit.class);
-        commitsFlux.doOnNext(response -> log.info("Array Mono response: " + response.toString()))
+        commitsFlux.doOnNext(response -> log.info("Commits response: " + response.toString()))
                     .doOnError(error -> log.error("Error On Commit Flux", error))
                     .subscribe();
     }
